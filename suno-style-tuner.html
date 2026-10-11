@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SUNO Style Tuner (Sans)</title>
+<title>SUNO Style Tuner by kakmade | Fine-tune your next song</title>
 <style>
 :root{
   --bg:#f3efe6; --ink:#1d2a2e; --muted:#5d6b6e; --line:#cfc8b8; --accent:#b4412c; --accent2:#2b6a73; --card:#fbf8f1;
@@ -54,6 +54,8 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
 .res{margin-top:-18px}
 .en2{font-size:.95rem;font-style:normal;color:var(--muted);margin-top:4px}
 .out{margin:0 4px 28px}
+.sp{display:block;width:auto;margin:8px auto 18px;padding:12px 32px;font:inherit;font-size:1.05rem;font-weight:bold;letter-spacing:.04em;border:0;border-radius:999px;background:var(--accent);color:var(--bg);cursor:pointer}
+.sp:active{transform:scale(.98)}
 .hd{text-align:center;margin:4px 0 26px}
 .hd .b1{font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
 .hd h1{margin:4px 0 0;font-size:2rem;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;line-height:1.1}
@@ -108,6 +110,8 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
     <input id="s" type="range" min="40" max="220" step="1" value="120" aria-label="BPM">
     <div class="scale"><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span><span>220</span></div>
     <div class="mini" aria-live="polite"><i id="term"></i><span id="en"></span></div>
+    <div class="chk"><label><input type="checkbox" id="bp"> Include BPM number</label></div>
+    <div id="bpn" style="display:none;font-size:.75rem;color:var(--muted);margin-top:4px">BPM numbers can lock the tempo of later songs. Uncheck to stay flexible.</div>
     </div>
   </section>
   <section>
@@ -190,6 +194,7 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
   <div class="box" id="both"></div>
   <div class="cap" style="margin-bottom:6px">Final Result (Music Terminology)</div>
   <div class="box" id="total" style="font-style:normal;font-size:1.1rem"></div>
+<button type="button" id="sp" class="sp">🎲 Surprise Me</button>
 <footer class="ft">This is only a helper tool for designing a style, so you do not waste credit tokens. It is unofficial and not affiliated with Suno.</footer>
 </main>
 <script>
@@ -283,6 +288,7 @@ function trow(cap,id){return '<div class="row"><div class="cap">'+cap+'</div><di
 function tempo(v){for(var i=0;i<T.length;i++){if(v>=T[i][1]&&v<T[i][2])return T[i]}return T[T.length-1]}
 function upd(){
   var v=+$("s").value,t=tempo(v),best=0,bd=9;
+  var bpm=$("bp").checked?" "+v+" bpm":"";$("bpn").style.display=$("bp").checked?"block":"none";
   var md=MD[+$("md").value];$("mdt").textContent=md[0];$("mde").textContent=md[2];
   var eq=EQ[+$("eq").value];$("eqt").textContent=eq;eq=eq==="Off"?"":eq.toLowerCase();
   var ly=LY[+$("ly").value];$("lyt").textContent=ly;ly=ly==="Off"?"":ly.toLowerCase().replace("tape ","tape-");
@@ -317,7 +323,7 @@ function upd(){
   k=[k[0],[k[1],sn[1],gv[1]].filter(Boolean).join(" and "),sn[1]?sn[0].toLowerCase():"",gv[1]?gv[0].toLowerCase():"",k[1]?"cassa "+k[0].toLowerCase():""];
   var b=BS[+$("bs").value];$("bst").textContent=b[0];$("bse").textContent=b[1];
   var vit=d[2]==="m"?itp[0]+" male vocal (solo)":d[2]==="f"?itp[1]+" female vocal (solo)":itp[0]+" male vocal and "+itp[1]+" female vocal ("+d[0].toLowerCase()+")";
-  show("res1",t[0]+" "+M[best][0].toLowerCase(),t[3]+" "+M[best][1].replace(/,/g,""));
+  show("res1",M[best][0].toLowerCase()+" "+t[0].toLowerCase()+bpm,M[best][1].replace(/,/g,"")+" "+t[3]+bpm);
   var grp=[["c1","gang vocals"],["c2","group singing"],["c3","sing-along"]].filter(function(c){return $(c[0]).checked}).map(function(c){return c[1]}).join(", ");grp=grp?"featuring "+grp:"";
   show("res2",vit+(grp?" "+grp:""),voc+(grp?" "+grp:""));
   var instI=[r[1]?r[0]:"",k[3],k[4],k[2],b[1]?b[0]:"",y[2]?y[0]:""].filter(Boolean),inst=[r[1]?r[1]+" rhythm":"",k[1],b[1],y[2]?y[2]+" instrumentation":""].filter(Boolean).join(" and ");
@@ -331,7 +337,7 @@ function upd(){
   var vs2=d[2]==="m"?parts[0]:d[2]==="f"?parts[1]:parts[0]+" and "+parts[1];
   var inI=instI.length?" over "+instI.join(" "):"",inE=inst?" over "+inst:"";
   var dx=d[2]==="b"?" "+d[0].toLowerCase():"",dxe=d[2]==="b"?" "+d[3]:"";
-  show("total",(md[1]?(md[3]||md[0])+" ":"")+fx+(gstr?gstr+" ":"")+"in "+t[0]+" tempo with "+vit2+dx+(grp?" "+grp:"")+inI,((md[1]?md[1]+" ":"")+fx+(gstr?gstr.toLowerCase()+" ":"")+"in "+t[3]+" with "+vs2+dxe+(grp?" "+grp.replace(/,/g,"\u0001"):"")+inE).replace(/,/g,"").replace(/\u0001/g,","));
+  show("total",(md[1]?(md[3]||md[0])+" ":"")+fx+(gstr?gstr+" ":"")+"in "+t[0]+bpm+" tempo with "+vit2+dx+(grp?" "+grp:"")+inI,((md[1]?md[1]+" ":"")+fx+(gstr?gstr.toLowerCase()+" ":"")+"in "+t[3]+bpm+" with "+vs2+dxe+(grp?" "+grp.replace(/,/g,"\u0001"):"")+inE).replace(/,/g,"").replace(/\u0001/g,","));
   (function(){var o=$("total")._o,tx=o.textContent;
     $("total").style.marginBottom="18px";
     if(!o._c){o._c=document.createElement("div");o._c.className="cap";o._c.style.marginBottom="6px";o._c.textContent="Final Result (English)";o.parentNode.insertBefore(o._c,o);o._n=document.createElement("div");o._n.className="en2 out";o._n.textContent="Use music terminology for near expected result";o.after(o._n)}
@@ -351,6 +357,20 @@ pad.addEventListener("keydown",function(e){var k={ArrowLeft:[-.05,0],ArrowRight:
   if(!k)return;e.preventDefault();px=Math.max(-1,Math.min(1,px+k[0]));py=Math.max(-1,Math.min(1,py+k[1]));upd()});
 document.querySelectorAll('input[type=range]').forEach(function(i){i.addEventListener("input",upd)});
 document.querySelectorAll('.chk input').forEach(function(i){i.addEventListener("change",upd)});
+function surprise(){
+  var rnd=function(el){var a=+el.min,b=+el.max;return a+Math.floor(Math.random()*(b-a+1))};
+  ["d","mv","mm","mp","fv","fm","fp"].forEach(function(id){$(id).value=rnd($(id))});
+  $("s").value=60+Math.floor(Math.random()*141);
+  ["md","eq","ly","kd","sn","gv","bs","dy","rt","era"].forEach(function(id){var el=$(id);el.value=Math.random()<.5?el.defaultValue:rnd(el)});
+  px=Math.random()*2-1;py=Math.random()*2-1;
+  var pool=GL.slice(27),pk=function(){return pool[Math.floor(Math.random()*pool.length)]};
+  var gs=[pk(),Math.random()<.7?pk():"",Math.random()<.4?pk():"",Math.random()<.2?pk():""];
+  ["g1","g2","g3","g4"].forEach(function(id,i){$(id).value=(i>0&&gs[i]===gs[0])?"":gs[i]});
+  ["c1","c2","c3"].forEach(function(id){$(id).checked=Math.random()<.2});
+  document.querySelectorAll(".seg button")[Math.random()<.5?0:1].click();
+  upd();
+}
+$("sp").addEventListener("click",surprise);
 ["g1","g2","g3","g4"].forEach(function(id){$(id).addEventListener("input",upd);ac($(id))});
 upd();
 </script>
