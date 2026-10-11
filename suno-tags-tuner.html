@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SUNO Tags Tuner (Sans)</title>
+<style>
+:root{--bg:#f3efe6;--ink:#1d2a2e;--muted:#5d6b6e;--line:#cfc8b8;--accent:#b4412c;--accent2:#2b6a73;--card:#fbf8f1;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14201f;--ink:#ece6d6;--muted:#9fb0ad;--line:#2f4240;--accent:#e8896f;--accent2:#7fc4cc;--card:#1b2b2a}}
+:root[data-theme="dark"]{--bg:#14201f;--ink:#ece6d6;--muted:#9fb0ad;--line:#2f4240;--accent:#e8896f;--accent2:#7fc4cc;--card:#1b2b2a}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
+main{max-width:520px;margin:0 auto;padding:24px 20px 40px}
+.hd{text-align:center;margin:4px 0 26px}
+.hd .b1{font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+.hd h1{margin:4px 0 0;font-size:2rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.1}
+h2{font-size:.95rem;margin:0 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
+.grp,.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px}
+.card{padding:12px}
+.ir{display:grid;grid-template-columns:92px 1fr;gap:8px;align-items:center;margin-bottom:8px}
+.cap{font-size:.95rem;font-weight:bold}
+.cap2{font-size:.66rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:12px}
+input[type=text],select,textarea{font:inherit;font-size:.95rem;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;width:100%}
+select{width:auto;font-weight:bold}
+textarea{font-style:italic;font-size:1.05rem;resize:vertical}
+input:focus-visible,select:focus-visible,textarea:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input[type=range]{width:100%;height:30px;margin:0;accent-color:var(--accent)}
+.top{display:flex;gap:8px;align-items:center;margin-bottom:10px}.sp{flex:1}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.chip,.cp,.lnk,.big{font:inherit;font-size:.9rem;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 12px;cursor:pointer}
+.cp{border-radius:8px;padding:4px 9px}
+.chip.on{background:var(--accent2);color:var(--bg);border-color:var(--accent2)}
+.chip:disabled{opacity:.4;cursor:default}
+.lnk{border:0;padding:2px 0;color:var(--accent);font-size:.85rem}.lnk[hidden]{display:none}
+.row,.sg{display:flex;flex-wrap:wrap;gap:0 12px}
+.row{border-top:1px solid var(--line);padding:8px 0}
+.rh{width:100%}
+.sc{width:calc(50% - 6px)}
+.sc .mini{font-size:1rem}
+.sc .mini span{margin-left:6px}
+.sc .mini span:empty{display:none}
+.sc .mini span::before{content:"— "}
+.rh{display:flex;justify-content:space-between;align-items:center;font-size:.95rem}
+.tc{font-size:.85rem;color:var(--muted);cursor:pointer}
+.mini{font-size:1.15rem;font-style:italic;line-height:1.2}
+.mini i{color:var(--accent)}
+.mini span{font-size:.85rem;font-style:normal;color:var(--muted);margin-left:8px}
+.ow{display:flex;gap:8px;align-items:flex-start;margin-top:4px}
+.en2{font-size:.9rem;color:var(--muted);margin-top:4px}
+.btns{display:flex;gap:10px;justify-content:center;margin:6px 0 20px}
+.big{padding:8px 16px}
+.ft{padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:.8rem;color:var(--muted)}
+</style>
+</head>
+<body>
+<main>
+<header class="hd"><div class="b1">S U N O</div><h1>Tags Tuner</h1></header>
+<section class="grp"><h2>🎻 Choose Instruments</h2><div id="inst"></div></section>
+<datalist id="dl1"><option value="Acoustic guitar"><option value="Nylon guitar"><option value="Electric guitar"><option value="Piano"><option value="Rhodes"><option value="Organ"><option value="Violin"><option value="Viola"><option value="Cello"><option value="Harp"><option value="Flute"><option value="Clarinet"><option value="Saxophone"><option value="Trumpet"><option value="Accordion"><option value="Harmonica"><option value="Synth pad"></datalist>
+<datalist id="dld"><option value="Acoustic kit"><option value="Brushed kit"><option value="Jazz kit"><option value="Metal kit"><option value="Cajon"><option value="Hand percussion"><option value="Electronic kit"></datalist>
+<datalist id="dlb"><option value="Upright bass"><option value="Fingerstyle bass"><option value="Fretless bass"><option value="Slap bass"><option value="Picked bass"><option value="Synth bass"></datalist>
+<div id="secs"></div>
+<div class="btns"><button class="big" id="add" type="button">+ Section</button><button class="big" id="all" type="button">📋 Copy all</button></div>
+<footer class="ft">A helper for drafting lyric tags so you do not waste credit tokens. Tags nudge Suno, they do not command it. Unofficial and not affiliated with Suno.</footer>
+</main>
+<script>
+var $=function(i){return document.getElementById(i)};
+var ROLES=[["p","Primary"],["s","Secondary"],["t","Tertiary"],["d","Drums"],["b","Bass"]];
+var LST={p:"dl1",s:"dl1",t:"dl1",d:"dld",b:"dlb"};
+var IN={p:"",s:"",t:"",d:"",b:""};
+var TYPES=["Intro","Verse 1","Verse 2","Pre-Chorus","Chorus","Bridge","Build","Break","Drop","Solo","Instrumental","Interlude","Spoken","Outro"];
+var ART=[["Off",""],["Muted","muted"],["Legato","smooth"],["Portato","gently detached"],["Staccato","short"],["Tremolo","trembling"],["Marcato","accented"],["Martellato","hammered"]];
+var DEN=[["Off",""],["Tenuto","held notes"],["Sostenuto","sustained"],["Sparso","sparse"],["Semplice","simple"],["Ostinato","repeating"]];
+var DYN=[["Off",""],["Pianississimo","barely audible"],["Pianissimo","very quiet"],["Piano","soft"],["Mezzo piano","gentle"],["Mezzo forte","moderately loud"],["Forte","loud"],["Fortissimo","very loud"],["Fortississimo","thunderous"]];
+var DIR=[["Off",""],["Diminuendo","fading softer"],["Crescendo","growing louder"]];
+var SPD=[["Off",""],["Sotto voce","whispered"],["Mezza voce","half-voiced"],["Parlando","speech-like"],["Recitativo","recited"],["Declamato","declaimed"],["Gridato","shouted"]];
+var SPP=[["Off",""],["Largo","very slow"],["Lento","slow"],["Andante","walking pace"],["Allegro","brisk"],["Presto","rapid"]];
+var CS=[["d","Delivery",SPD],["p","Pace",SPP],["y","Dynamics",DYN]];
+var CT=[["a","Articulation",ART],["n","Density",DEN],["y","Dynamics",DYN],["r","Direction",DIR]];
+function R0(){return {on:false,tac:false,a:0,n:0,y:0,r:0}}
+function S0(t){var r={};ROLES.forEach(function(x){r[x[0]]=R0()});return {type:t,r:r,man:null,sp:{d:0,p:0,y:0},text:""}}
+var S=[S0("Pre-Chorus"),S0("Chorus")];
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function name(k){return ($("i_"+k).value||"").trim()}
+function gen(s){if(s.type==="Spoken"){var m=[],e=[];CS.forEach(function(c){var v=c[2][s.sp[c[0]]];if(v[1]){m.push(v[0]);e.push(v[1])}});return {t:"[Spoken"+(m.length?": "+m.join(" "):"")+"]"+(s.text?"\n"+s.text:""),e:m.length?"Spoken: "+e.join(" "):""}}var it=[],en=[];
+ ROLES.forEach(function(R){var r=s.r[R[0]],nm=name(R[0]);if(!r.on||!nm)return;
+  if(r.tac){it.push(nm+" - Tacet");en.push(nm+" silent");return}
+  var m=[],e=[];CT.forEach(function(c){var v=c[2][r[c[0]]];if(v[1]){m.push(v[0]);e.push(v[1])}});
+  it.push(m.length?nm+" - "+m.join(" "):nm);en.push(m.length?nm+" "+e.join(" "):nm)});
+ return {t:"["+s.type+(it.length?": "+it.join(", "):"")+"]",e:it.length?s.type+": "+en.join(" and "):""}}
+function txt(s){return s.man!==null?s.man:gen(s).t}
+function rowH(s,i,R){var r=s.r[R[0]],nm=name(R[0]);if(!r.on||!nm)return"";
+ var h='<div class="row"><div class="rh"><span><b>'+R[1]+'</b> · '+esc(nm)+'</span><label class="tc"><input type="checkbox" data-i="'+i+'" data-r="'+R[0]+'" data-k="tac"'+(r.tac?" checked":"")+'> Tacet</label></div>';
+ if(!r.tac)CT.forEach(function(c){var v=c[2][r[c[0]]];
+  h+='<div class="sc"><div class="cap2">'+c[1]+'</div><input type="range" min="0" max="'+(c[2].length-1)+'" step="1" value="'+r[c[0]]+'" data-i="'+i+'" data-r="'+R[0]+'" data-k="'+c[0]+'" aria-label="'+R[1]+" "+c[1]+'"><div class="mini"><i>'+v[0]+'</i><span>'+v[1]+'</span></div></div>'});
+ return h+"</div>"}
+function spk(s,i){var h='<div class="cap">Spoken text</div><textarea data-i="'+i+'" data-k="txt" rows="3" placeholder="Type the spoken words">'+esc(s.text)+'</textarea>';h+='<div class="sg">';CS.forEach(function(c){var v=c[2][s.sp[c[0]]];h+='<div class="sc"><div class="cap2">'+c[1]+'</div><input type="range" min="0" max="'+(c[2].length-1)+'" step="1" value="'+s.sp[c[0]]+'" data-i="'+i+'" data-r="sp" data-k="'+c[0]+'" aria-label="Spoken '+c[1]+'"><div class="mini"><i>'+v[0]+'</i><span>'+v[1]+'</span></div></div>'});return h+'</div>'}
+function card(s,i){var g=gen(s);
+ var h='<div class="card"><div class="top"><select data-i="'+i+'" data-k="type" aria-label="Section">'+TYPES.map(function(t){return '<option'+(t===s.type?" selected":"")+'>'+t+'</option>'}).join("")+'</select><span class="sp"></span>'+
+ (i?'<button class="cp" type="button" data-act="prev" data-i="'+i+'">↧ copy previous</button>':"")+'<button class="cp" type="button" data-act="del" data-i="'+i+'" aria-label="Delete section">✕</button></div>';
+ if(s.type==="Spoken")h+=spk(s,i);else h+='<div class="cap">Apply modifiers to</div><div class="chips">'+ROLES.map(function(R){var nm=name(R[0]);
+  return '<button type="button" class="chip'+(s.r[R[0]].on&&nm?" on":"")+'" data-act="chip" data-i="'+i+'" data-r="'+R[0]+'"'+(nm?"":" disabled")+'>'+R[1]+(nm?" · "+esc(nm):"")+'</button>'}).join("")+'</div>';
+ if(s.type!=="Spoken")ROLES.forEach(function(R){h+=rowH(s,i,R)});
+ h+='<div class="cap" style="margin-top:10px">Output</div><div class="ow"><textarea id="o'+i+'" data-i="'+i+'" data-k="man" rows="'+(s.type==="Spoken"?4:2)+'" spellcheck="false">'+esc(txt(s))+'</textarea><button class="cp" type="button" data-act="copy" data-i="'+i+'" aria-label="Copy">📋</button></div>';
+ h+='<div class="en2" id="e'+i+'">'+esc(g.e)+'</div><button class="lnk" type="button" id="rs'+i+'" data-act="reset" data-i="'+i+'"'+(s.man===null?" hidden":"")+'>↺ back to auto</button></div>';
+ return h}
+function render(){$("secs").innerHTML=S.map(card).join("")}
+function refresh(i){var s=S[i],g=gen(s);if(s.man===null)$("o"+i).value=g.t;$("e"+i).textContent=g.e}
+function cp(t,b){function ok(){var o=b.textContent;b.textContent="✓";setTimeout(function(){b.textContent=o},1200)}
+ function fb(){var a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(a)}
+ if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else{fb()}}
+$("inst").innerHTML=ROLES.map(function(R){return '<div class="ir"><label class="cap" for="i_'+R[0]+'">'+R[1]+'</label><input type="text" id="i_'+R[0]+'" list="'+LST[R[0]]+'" autocomplete="off" placeholder="'+(R[0]==="d"?"Type drums":R[0]==="b"?"Type bass":"Type instrument")+'" value="'+esc(IN[R[0]])+'"></div>'}).join("");
+$("inst").addEventListener("input",render);
+$("secs").addEventListener("input",function(e){var t=e.target,i=+t.dataset.i,s=S[i];if(!s)return;
+ if(t.type==="range"){var k=t.dataset.k,sp=t.dataset.r==="sp",c=(sp?CS:CT).filter(function(x){return x[0]===k})[0];(sp?s.sp:s.r[t.dataset.r])[k]=+t.value;
+  var v=c[2][+t.value],m=t.nextElementSibling;m.innerHTML="<i>"+v[0]+"</i><span>"+v[1]+"</span>";refresh(i)}
+ else if(t.dataset.k==="txt"){s.text=t.value;refresh(i)}
+ else if(t.dataset.k==="man"){s.man=t.value;$("rs"+i).hidden=false}});
+$("secs").addEventListener("change",function(e){var t=e.target,s=S[+t.dataset.i];if(!s)return;
+ if(t.dataset.k==="type"){s.type=t.value;render()}
+ else if(t.dataset.k==="tac"){s.r[t.dataset.r].tac=t.checked;render()}});
+$("secs").addEventListener("click",function(e){var b=e.target.closest("button[data-act]");if(!b)return;
+ var i=+b.dataset.i,s=S[i],a=b.dataset.act;
+ if(a==="chip"){s.r[b.dataset.r].on=!s.r[b.dataset.r].on;render()}
+ else if(a==="del"){S.splice(i,1);render()}
+ else if(a==="prev"){s.r=JSON.parse(JSON.stringify(S[i-1].r));s.sp=JSON.parse(JSON.stringify(S[i-1].sp));s.man=null;render()}
+ else if(a==="reset"){s.man=null;render()}
+ else if(a==="copy"){cp(txt(s),b)}});
+$("add").onclick=function(){S.push(S0("Verse 1"));render()};
+$("all").onclick=function(){cp(S.map(txt).join("\n\n"),$("all"))};
+render();
+</script>
+</body>
+</html>
