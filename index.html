@@ -36,7 +36,7 @@ li { margin:.35em 0; }
 </tbody></table>
 <p><a href="#bahasa-indonesia">Bahasa Indonesia</a> | <a href="#english">English</a></p>
 <hr>
-<h2>Bahasa Indonesia</h2>
+<h2 id="bahasa-indonesia">Bahasa Indonesia</h2>
 <h3>Apa ini</h3>
 <p>Dua halaman HTML mandiri dengan slider dan kotak isian. Keduanya menghasilkan teks yang tinggal kamu salin ke Suno. Hasilnya memakai istilah musik (kebanyakan Italia) dengan terjemahan Inggris di bawahnya, karena dalam pengujian istilah musik lebih dipatuhi Suno daripada kalimat deskriptif yang panjang.</p>
 <p>Konsepnya: <strong>style prompt adalah cetak biru, tag di lirik adalah pelaksanaannya.</strong> Style Tuner mengatur karakter keseluruhan lagu, Tags Tuner mengatur apa yang terjadi di tiap bagian lagu.</p>
@@ -49,6 +49,7 @@ li { margin:.35em 0; }
 <li>Tempel ke kotak <strong>Style of Music</strong> di Suno.</li>
 </ol>
 <p>Pola hasilnya kurang lebih: <em>(medium) (genre) in (tempo) tempo with (vokal)</em>, diikuti istilah instrumen lainnya.</p>
+
 <h3>Cara pakai Tags Tuner</h3>
 <ol>
 <li>Di <strong>Choose Instruments</strong>, ketik instrumenmu: Primary, Secondary, Tertiary, Drums, dan Bass. Kolom dibiarkan kosong kalau tidak dipakai.</li>
@@ -59,6 +60,7 @@ li { margin:.35em 0; }
 <li>Salin hasil per section dengan 📋, atau semuanya sekaligus dengan <strong>Copy all</strong>.</li>
 <li>Tempel ke kotak <strong>Lyrics</strong> di Suno, di atas lirik tiap bagian.</li>
 </ol>
+
 <p>Format hasilnya:</p>
 <pre><code>[Pre-Chorus: Guitar - Muted Sparso Pianissimo, Viola - Tremolo Pianissimo]
 
@@ -67,6 +69,7 @@ li { margin:.35em 0; }
 [Spoken: Sotto voce Lento]
 teks yang diucapkan di sini</code></pre>
 <p>Kotak output bisa diedit dengan tangan. Begitu kamu mengetik di dalamnya, pembaruan otomatis berhenti untuk section itu. Tekan <strong>back to auto</strong> untuk mengembalikannya. Tombol <strong>copy previous</strong> menyalin pengaturan section sebelumnya.</p>
+
 <h3>Temuan dari pengujian</h3>
 <ul>
 <li>Tag <strong>memengaruhi</strong>, bukan memerintah. Hasilnya tidak 100% mengikuti, tapi jejaknya terdengar.</li>
@@ -76,6 +79,7 @@ teks yang diucapkan di sini</code></pre>
 <li>Tag Density (misalnya <em>Tenuto</em>, <em>Sostenuto</em>, <em>Sparso</em>) membantu menahan Suno dari permainan virtuoso atau arpeggio yang terlalu ramai.</li>
 <li>Hindari koma di dalam style prompt karena Suno bisa mencampuradukkannya.</li>
 </ul>
+
 <h3>Disclaimer</h3>
 <ul>
 <li>Ini alat bantu <strong>tidak resmi</strong> dan <strong>tidak berafiliasi</strong> dengan Suno. Suno adalah merek dagang pemiliknya masing-masing.</li>
@@ -84,8 +88,10 @@ teks yang diucapkan di sini</code></pre>
 <li>Semua berjalan di browsermu. Alat ini tidak mengirim data apa pun ke server.</li>
 <li>Disediakan apa adanya (<em>as is</em>), tanpa garansi dalam bentuk apa pun.</li>
 </ul>
+  
 <hr>
-<h2>English</h2>
+  
+<h2 id="english">English</h2>
 <h3>What is this</h3>
 <p>Two standalone HTML pages with sliders and input fields. Both produce text you copy straight into Suno. The output uses music terminology (mostly Italian) with an English translation below it, because in testing Suno followed music terms better than long descriptive sentences.</p>
 <p>The concept: <strong>the style prompt is the blueprint, and the lyric tags are the execution.</strong> The Style Tuner sets the overall character of the song, the Tags Tuner controls what happens in each section.</p>
@@ -98,6 +104,7 @@ teks yang diucapkan di sini</code></pre>
 <li>Paste it into Suno's <strong>Style of Music</strong> box.</li>
 </ol>
 <p>The result follows roughly this pattern: <em>(medium) (genre) in (tempo) tempo with (vocal)</em>, followed by the remaining instrument terms.</p>
+  
 <h3>How to use the Tags Tuner</h3>
 <ol>
 <li>Under <strong>Choose Instruments</strong>, type your instruments: Primary, Secondary, Tertiary, Drums and Bass. Leave a field empty if you do not use it.</li>
@@ -108,6 +115,7 @@ teks yang diucapkan di sini</code></pre>
 <li>Copy each section with 📋, or everything at once with <strong>Copy all</strong>.</li>
 <li>Paste into Suno's <strong>Lyrics</strong> box, above the lyrics of each part.</li>
 </ol>
+  
 <p>Output format:</p>
 <pre><code>[Pre-Chorus: Guitar - Muted Sparso Pianissimo, Viola - Tremolo Pianissimo]
 
@@ -116,6 +124,7 @@ teks yang diucapkan di sini</code></pre>
 [Spoken: Sotto voce Lento]
 the spoken text goes here</code></pre>
 <p>The output box can be edited by hand. Once you type in it, auto-updating stops for that section. Press <strong>back to auto</strong> to restore it. <strong>Copy previous</strong> duplicates the previous section's settings.</p>
+
 <h3>Findings from testing</h3>
 <ul>
 <li>Tags <strong>influence</strong>, they do not command. Results do not follow them 100%, but traces are audible.</li>
@@ -125,6 +134,7 @@ the spoken text goes here</code></pre>
 <li>Density tags (such as <em>Tenuto</em>, <em>Sostenuto</em>, <em>Sparso</em>) help keep Suno from overly busy virtuoso or arpeggio playing.</li>
 <li>Avoid commas inside the style prompt, because Suno may mix them up.</li>
 </ul>
+  
 <h3>Disclaimer</h3>
 <ul>
 <li>These are <strong>unofficial</strong> helper tools and are <strong>not affiliated</strong> with Suno. Suno is a trademark of its respective owner.</li>
@@ -133,5 +143,6 @@ the spoken text goes here</code></pre>
 <li>Everything runs in your browser. The tools do not send any data to a server.</li>
 <li>Provided "as is", without warranty of any kind.</li>
 </ul>
-</main></body>
+</main>
+</body>
 </html>
