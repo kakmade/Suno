@@ -13,9 +13,9 @@
   :root:not([data-theme="light"]){--bg:#14201f;--ink:#ece6d6;--muted:#9fb0ad;--line:#2f4240;--accent:#e8896f;--accent2:#7fc4cc;--card:#1b2b2a}
 }
 :root[data-theme="dark"]{--bg:#14201f;--ink:#ece6d6;--muted:#9fb0ad;--line:#2f4240;--accent:#e8896f;--accent2:#7fc4cc;--card:#1b2b2a}
-:root{--tl:#c0392b;--tr:#f2b632;--bl:#3b4a8c;--br:#e6a8c0}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl:#8f2a22;--tr:#b98a1f;--bl:#24305e;--br:#9a6279}}
-:root[data-theme="dark"]{--tl:#8f2a22;--tr:#b98a1f;--bl:#24305e;--br:#9a6279}
+:root{--tl:#e0412f;--tr:#ffff00;--bl:#2a0f4d;--br:#ff9ec4}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--tl:#c9382a;--tr:#ffff00;--bl:#3a1d73;--br:#e98bb0}}
+:root[data-theme="dark"]{--tl:#c9382a;--tr:#ffff00;--bl:#3a1d73;--br:#e98bb0}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;line-height:1.5}
 main{max-width:520px;margin:0 auto;padding:24px 20px 40px}
@@ -33,15 +33,15 @@ input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .ylab{display:flex;flex-direction:column;justify-content:space-between;align-items:center;font-size:1.3rem;height:100%}
 #pad{position:relative;aspect-ratio:1/1;width:100%;background:var(--card);border:1px solid var(--line);border-radius:10px;touch-action:none;cursor:crosshair;overflow:hidden}
 #pad:focus-visible{outline:2px solid var(--accent2);outline-offset:3px}
-#pad::before,#pad::after{content:"";position:absolute;z-index:1;background:rgba(255,255,255,.4)}
+#pad::before,#pad::after{content:"";position:absolute;z-index:1;background:rgba(255,255,255,.6);box-shadow:0 0 0 1px rgba(0,0,0,.2)}
 .g1,.g2{position:absolute;inset:0;z-index:0}
 .g1{background:linear-gradient(to right,var(--bl),var(--br))}
 .g2{background:linear-gradient(to right,var(--tl),var(--tr));-webkit-mask-image:linear-gradient(to bottom,#000,transparent);mask-image:linear-gradient(to bottom,#000,transparent)}
 #pad::before{left:50%;top:0;bottom:0;width:1px}
 #pad::after{top:50%;left:0;right:0;height:1px}
-.dot{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;opacity:.6;z-index:2}
-.dot.on{background:#fff;opacity:1;width:10px;height:10px;margin:-5px 0 0 -5px}
-#cur{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #fff;border-radius:50%;pointer-events:none;z-index:3;box-shadow:0 0 0 1px rgba(0,0,0,.35)}
+.dot{position:absolute;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#fff;opacity:.75;z-index:2;box-shadow:0 0 0 1px rgba(0,0,0,.5)}
+.dot.on{background:#fff;opacity:1;width:10px;height:10px;margin:-5px 0 0 -5px;box-shadow:0 0 0 1.5px rgba(0,0,0,.7)}
+#cur{position:absolute;width:22px;height:22px;margin:-11px 0 0 -11px;border:2px solid #fff;border-radius:50%;pointer-events:none;z-index:3;box-shadow:0 0 0 2px rgba(0,0,0,.55)}
 .xlab{grid-column:2;display:flex;justify-content:space-between;font-size:1.3rem}
 h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
 .row{margin-bottom:10px;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
@@ -50,10 +50,27 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
 .cap{font-size:.95rem;color:var(--ink);font-weight:bold}
 .mini{font-size:1.25rem;font-style:italic;line-height:1.2;overflow-wrap:anywhere}
 .mini span{font-size:.85rem;font-style:normal;color:var(--muted);margin-left:6px}
-.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:1.1rem;font-style:italic;margin-bottom:28px}
-.res{margin-top:-18px}
+.box{background:#fff6a5;border:1px solid #e3d572;border-radius:10px;padding:14px 16px;font-size:1.1rem;font-style:italic;margin-bottom:28px;color:#000}
+.res{margin-top:0}
+.og{border:1px solid var(--line);border-radius:16px;padding:14px 14px 6px;margin-bottom:22px;background:rgba(127,127,127,.07)}
+.oh{font-size:.8rem;font-weight:bold;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.og>section,.og>details,.og>details.grp{margin-bottom:12px}
+.rg{margin:2px 0 10px}
+.rg .cap{margin-bottom:6px}
+.rg .out{margin:0 4px 10px}
 .en2{font-size:.95rem;font-style:normal;color:var(--muted);margin-top:4px}
 .out{margin:0 4px 28px}
+.badge{font-size:.65rem;font-weight:normal;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--accent);color:var(--accent);border-radius:999px;margin-left:8px;vertical-align:middle}
+details.grp{margin-bottom:28px}
+details.grp .cols{margin:6px 0 10px}
+.cols .mini span{display:block;margin:2px 0 0}
+details.grp>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+details.grp>summary::-webkit-details-marker{display:none}
+details.grp>summary::after{content:"\25B8";color:var(--muted);font-size:1rem}
+details.grp[open]>summary::after{content:"\25BE"}
+details.grp>summary h2{margin:0}
+details.grp[open]>summary h2{margin-bottom:4px}
+details.grp>summary:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
 .sp{display:block;width:auto;margin:8px auto 18px;padding:12px 32px;font:inherit;font-size:1.05rem;font-weight:bold;letter-spacing:.04em;border:0;border-radius:999px;background:var(--accent);color:var(--bg);cursor:pointer}
 .sp:active{transform:scale(.98)}
 .hd{text-align:center;margin:4px 0 26px}
@@ -77,16 +94,41 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
 .grp .row{border:0;background:transparent;border-radius:0;padding:8px 0;margin:0;border-bottom:1px solid var(--line)}
 .grp .row:last-child{border-bottom:0;padding-bottom:0}
 .cp{font:inherit;font-size:1rem;font-style:normal;background:transparent;color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 9px;cursor:pointer}
+.box .cp{color:#000;border-color:rgba(0,0,0,.35)}
 .cp:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
 <main>
   <header class="hd"><div class="b1">S U N O &middot; V 6 +</div><h1>Style Tuner</h1></header>
+  <div class="og">
+  <div class="oh">🏗️ Base</div>
   <section class="grp" id="genre"><h2>🎧 Genre</h2></section>
-  <section class="grp">
+  <section>
+    <div class="row"><div class="cap">⏱️ Tempo (<span id="val">120</span> BPM)</div>
+    <input id="s" type="range" min="40" max="220" step="1" value="120" aria-label="BPM">
+    <div class="scale"><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span><span>220</span></div>
+    <div class="mini" aria-live="polite"><i id="term"></i><span id="en"></span></div>
+    <div class="chk"><label><input type="checkbox" id="bp"> Include BPM number</label></div>
+    <div id="bpn" style="display:none;font-size:.75rem;color:var(--muted);margin-top:4px">BPM numbers can lock the tempo of later songs. Uncheck to stay flexible.</div>
+    </div>
+  </section>
+  <section>
     <div class="row">
-      <div class="cap">🎙️ Processing &amp; Atmosphere</div>
+      <div class="cap">🎭 Nuance (XY Pad)</div>
+    <div class="chk"><label><input type="checkbox" id="nz" checked> ❌ Off (pad locked)</label></div>
+    <div class="padwrap" id="pw">
+      <div class="ylab"><span title="angry">😡</span><span title="neutral">😐</span><span title="broken">😭</span></div>
+      <div id="pad" tabindex="0" role="application" aria-label="Expression pad, use arrow keys"><div class="g1"></div><div class="g2"></div><div id="cur"></div></div>
+      <div></div>
+      <div class="xlab"><span title="dark">🌙</span><span title="neutral">☁️</span><span title="bright">☀️</span></div>
+    </div>
+    <div class="mini" aria-live="polite" style="margin-top:8px"><i id="mterm"></i><span id="men"></span></div>
+    </div>
+  </section>
+  <details class="grp" id="proc"><summary><h2>🎙️ Processing &amp; Atmosphere <span class="badge" id="pbon" style="display:none">Active</span></h2></summary>
+    <div class="row">
+      <div class="cap">🏠 Atmosphere</div>
       <input id="md" type="range" min="0" max="8" step="1" value="4" aria-label="Processing and atmosphere">
       <div class="scale"><span>🛏️</span><span>❌</span><span>🏟️</span></div>
       <div class="mini"><i id="mdt"></i><span id="mde"></span></div>
@@ -103,57 +145,43 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
       <div class="scale" style="position:relative;height:1.5em"><span style="position:absolute;left:0">🌅</span><span style="position:absolute;left:50%;transform:translateX(-50%)">❌</span><span style="position:absolute;right:0">📼</span></div>
       <div class="mini"><i id="lyt"></i><span id="lye"></span></div>
     </div>
-  </section>
-  <div class="box res" id="res0"></div>
-  <section>
-    <div class="row"><div class="cap">⏱️ Tempo (<span id="val">120</span> BPM)</div>
-    <input id="s" type="range" min="40" max="220" step="1" value="120" aria-label="BPM">
-    <div class="scale"><span>40</span><span>80</span><span>120</span><span>160</span><span>200</span><span>220</span></div>
-    <div class="mini" aria-live="polite"><i id="term"></i><span id="en"></span></div>
-    <div class="chk"><label><input type="checkbox" id="bp"> Include BPM number</label></div>
-    <div id="bpn" style="display:none;font-size:.75rem;color:var(--muted);margin-top:4px">BPM numbers can lock the tempo of later songs. Uncheck to stay flexible.</div>
-    </div>
-  </section>
-  <section>
-    <div class="row">
-      <div class="cap">🎭 Nuance (XY Pad)</div>
-    <div class="padwrap">
-      <div class="ylab"><span title="angry">😡</span><span title="neutral">😐</span><span title="broken">😭</span></div>
-      <div id="pad" tabindex="0" role="application" aria-label="Expression pad, use arrow keys"><div class="g1"></div><div class="g2"></div><div id="cur"></div></div>
-      <div></div>
-      <div class="xlab"><span title="dark">🌙</span><span title="neutral">☁️</span><span title="bright">☀️</span></div>
-    </div>
-    <div class="mini" aria-live="polite" style="margin-top:8px"><i id="mterm"></i><span id="men"></span></div>
-    </div>
-  </section>
-  <div class="box res" id="res1"></div>
-  <section>
-    <div class="row">
+  </details>
+  <div class="rg"><div class="cap">Base Result (Music Terminology)</div>
+    <div class="box" id="res0"></div>
+    <div class="box" id="res1"></div>
+  </div>
+</div>
+  <div class="og">
+  <div class="oh">💎 Core</div>
+  <details class="grp" id="chords"><summary><h2>🎵 Chord Progression <span class="badge">Experimental</span><span class="badge" id="cbon" style="display:none">Active</span></h2></summary></details>
+  <details class="grp" id="vocal" open><summary><h2>🎤 Vocals</h2></summary>
+  <div class="row">
       <div class="cap">🎹 Instrumental</div>
       <div class="chk"><label><input type="checkbox" id="ins"> Instrumental (turns off all vocals)</label></div>
     </div>
-  </section>
-  <section>
-    <div class="row">
+  <div class="row">
     <div class="cap">🎶 Duet Style</div>
     <input id="d" type="range" min="0" max="8" step="1" value="6" aria-label="Duet style">
     <div class="scale"><span>🧍</span><span>👫</span><span>💬</span></div>
     <div class="mini"><i id="dt"></i><span id="de"></span></div>
     </div>
-  </section>
   <div class="cols">
   <section id="pria"><h2>♂️ Male</h2></section>
   <section id="wanita"><h2>♀️ Female</h2></section>
   </div>
-  <section>
-    <div class="row">
+  <div class="row">
       <div class="cap">👥 Featuring (Group Vocals)</div>
       <div class="chk"><label><input type="checkbox" id="c1"> Gang Vocals</label><label><input type="checkbox" id="c2"> Group Singing</label><label><input type="checkbox" id="c3"> Sing Along</label></div>
     </div>
-  </section>
-  <div class="box res" id="res2"></div>
-  <section class="grp">
-    <h2>🥁 Drum</h2>
+  </details>
+  <div class="rg"><div class="cap">Core Result (Music Terminology)</div>
+    <div class="box" id="res3"></div>
+    <div class="box" id="res2"></div>
+  </div>
+</div>
+  <div class="og">
+  <div class="oh">🎷 Instruments</div>
+  <details class="grp" id="keyins"><summary><h2>🥁 Key Instruments <span class="badge" id="kion" style="display:none">Active</span></h2></summary>
     <div class="row">
       <div class="cap">🦶 Kick</div>
       <input id="kd" type="range" min="0" max="10" step="1" value="5" aria-label="Drum kick">
@@ -172,32 +200,29 @@ h2{font-size:.95rem;font-weight:bold;color:var(--ink);margin:0 0 10px;border-bot
       <div class="scale"><span>🐢</span><span>❌</span><span>🌀</span></div>
       <div class="mini"><i id="gvt"></i><span id="gve"></span></div>
     </div>
-  </section>
-  <section>
     <div class="row">
       <div class="cap">🎸 Bassline</div>
       <input id="bs" type="range" min="0" max="10" step="1" value="5" aria-label="Bassline">
       <div class="scale"><span>🌊</span><span>❌</span><span>🚂</span></div>
       <div class="mini"><i id="bst"></i><span id="bse"></span></div>
     </div>
-  </section>
-  <section>
     <div class="row">
       <div class="cap">🎚️ Instrument Dynamics</div>
       <input id="dy" type="range" min="0" max="8" step="1" value="4" aria-label="Instrument dynamics">
       <div class="scale"><span>🤫</span><span>❌</span><span>📢</span></div>
       <div class="mini"><i id="dyt"></i><span id="dye"></span></div>
     </div>
-  </section>
-  <section>
     <div class="row">
       <div class="cap">🎼 Rhythm</div>
       <input id="rt" type="range" min="0" max="8" step="1" value="4" aria-label="Rhythm">
       <div class="scale"><span>🌹</span><span>❌</span><span>💣</span></div>
       <div class="mini"><i id="rtt"></i><span id="rte"></span></div>
     </div>
-  </section>
-  <div class="box" id="both"></div>
+  </details>
+  <div class="rg"><div class="cap">Instrument Result (Music Terminology)</div>
+    <div class="box" id="both"></div>
+  </div>
+</div>
   <div class="cap" style="margin-bottom:6px">Final Result (Music Terminology)</div>
   <div class="box" id="total" style="font-style:normal;font-size:1.1rem"></div>
 <button type="button" id="sp" class="sp">🎲 Surprise Me</button>
@@ -217,7 +242,7 @@ var M=[
  ["Con fuoco","fiery",.2,.9],["Appassionato","passionate",0,.65],
  ["Trionfante","triumphant",.8,.9],["Con brio","youthful, spirited",.6,.75],
  ["Brillante","optimistic, bright",.6,.5],["Gioioso","happy, joyful",.85,.6],["Giocoso","playful",.7,.3],
- ["Speranzoso","hopeful",.35,.3],["Con anima","soulful",0,.1],["Espressivo","expressive",-.05,-.15],["Cantabile","singing",.3,0],
+ ["Speranzoso","hopeful",.35,.3],["Con anima","soulful",0,.25],["Espressivo","expressive",-.05,-.15],["Cantabile","singing",.3,0],
  ["Dolente","sad, sorrowful",-.55,-.3],["Malinconico","melancholic",-.3,-.4],["Lacrimoso","tearful",-.5,-.6],["Desolato","desolate, broken",-.8,-.75],
  ["Tranquillo","calm",.3,-.5],["Comodo","laid back",.55,-.45],["Amoroso","romantic, loving",.6,-.2],
  ["Dolce","sweet, gentle",.4,-.7],["Teneramente","tender",.6,-.85]
@@ -241,7 +266,7 @@ var MD=[["Bedroom","bedroom","intimate home recording"],["Lo-fi","lo-fi","grainy
 var ERA=["1930s","1940s","1960s","1970s","Off","1980s","1990s","2000s","modern"];
 var GN=["Classical","Opera","Gamelan","Keroncong","Bossa nova","Jazz","Latin jazz","Folk","Country","Blues","Soul","Ballad","Musical theatre","Off","Pop","Reggae","Dangdut","Funk","Disco","Hip hop","Indie rock","Emo","Pop punk","Rock","1990s rock","Metal","EDM"];
 var DY=[["Pianississimo","ppp","barely audible"],["Pianissimo","pp","very quiet"],["Piano","p","soft"],["Mezzo piano","mp","gentle"],["Off","",""],["Mezzo forte","mf","moderately loud"],["Forte","f","loud"],["Fortissimo","ff","very loud"],["Fortississimo","fff","thunderous"]];
-var $=function(i){return document.getElementById(i)},pad=$("pad"),px=.35,py=.3,dots=[];
+var $=function(i){return document.getElementById(i)},pad=$("pad"),px=0,py=0,dots=[];
 M.forEach(function(m){var d=document.createElement("div");d.className="dot";
   d.style.left=((m[2]+1)/2*100)+"%";d.style.top=((1-m[3])/2*100)+"%";pad.appendChild(d);dots.push(d)});
 function row(cap,id,max,val,sc){
@@ -291,11 +316,21 @@ function ac(inp){
   inp.addEventListener("blur",function(){setTimeout(hide,150)});
 }
 function trow(cap,id){return '<div class="row"><div class="cap">'+cap+'</div><div class="acw"><input id="'+id+'" class="txt" type="text" autocomplete="off" placeholder="'+(id==="g1"?"Type genre":"Type genre or leave blank")+'" aria-label="'+cap+'"><div class="ac"></div></div></div>'}
+var CH=["Major","Power","Minor","Off","Suspended","Augmented","Diminished"];
+$("chords").insertAdjacentHTML("beforeend",[["🧱 Foundation","cf"],["➡️ Approach","ca"],["⚡ Tension/Passing","ct"],["🏁 Resolution","cr"]].map(function(r){return row(r[0],r[1],6,3,["🧘","❌","🌪️"])}).join(""));
 function tempo(v){for(var i=0;i<T.length;i++){if(v>=T[i][1]&&v<T[i][2])return T[i]}return T[T.length-1]}
 function upd(){
   var v=+$("s").value,t=tempo(v),best=0,bd=9;
   var bpm=$("bp").checked?" "+v+" bpm":"";$("bpn").style.display=$("bp").checked?"block":"none";
-  var ins=$("ins").checked;["d","mv","mm","mp","fv","fm","fp","c1","c2","c3"].forEach(function(id){$(id).disabled=ins});[$("d").closest("section"),$("mv").closest(".cols"),$("c1").closest("section")].forEach(function(el){el.style.opacity=ins?".35":"";el.style.pointerEvents=ins?"none":""});
+  var cv=["cf","ca","ct","cr"].map(function(id){var c=CH[+$(id).value];$(id+"t").textContent=c;return c==="Off"?"":c.toLowerCase()});
+  var cfirst=[cv[0]?cv[0]+" chords":"",cv[1]?(cv[0]?"transitioning into ":"")+cv[1]+" chords":""].filter(Boolean).join(" ");
+  var crest=[cv[2]?"accented by brief "+cv[2]+" passing chords":"",cv[3]?((cfirst||cv[2])?"then ":"")+"resolving "+(cv[3]===cv[0]?"back to ":"to ")+cv[3]+" chords":""];
+  var csent=[cfirst].concat(crest).filter(Boolean).join(", ");
+  csent=csent?csent.charAt(0).toUpperCase()+csent.slice(1)+".":"";
+  show("res3",csent,"");$("cbon").style.display=csent?"":"none";
+  $("pbon").style.display=["md","eq","ly"].some(function(id){return +$(id).value!==+$(id).defaultValue})?"":"none";
+  $("kion").style.display=["kd","sn","gv","bs","dy","rt"].some(function(id){return +$(id).value!==+$(id).defaultValue})?"":"none";$("res3").style.display=csent?"flex":"none";$("res3")._o.style.display=csent?"":"none";
+  var ins=$("ins").checked;["d","mv","mm","mp","fv","fm","fp","c1","c2","c3"].forEach(function(id){$(id).disabled=ins});[$("d").closest(".row"),$("mv").closest(".cols"),$("c1").closest(".row")].forEach(function(el){el.style.opacity=ins?".35":"";el.style.pointerEvents=ins?"none":""});
   var md=MD[+$("md").value];$("mdt").textContent=md[0];$("mde").textContent=md[2];
   var eq=EQ[+$("eq").value];$("eqt").textContent=eq;eq=eq==="Off"?"":eq.toLowerCase();
   var ly=LY[+$("ly").value];$("lyt").textContent=ly;ly=ly==="Off"?"":ly.toLowerCase().replace("tape ","tape-");
@@ -307,10 +342,11 @@ function upd(){
   var mg=(md[1]?(md[3]||md[0])+" ":"")+fx+gstr;show("res0",mg.trim(),gl.length>1?"primary leads, influenced with, weight, colored or mixed adds color, slip is a brief touch, rupture is a stronger break":"");
   $("res0").style.display=mg?"flex":"none";$("res0")._o.style.display=mg?"":"none";
   M.forEach(function(m,i){var d=(m[2]-px)*(m[2]-px)+(m[3]-py)*(m[3]-py);if(d<bd){bd=d;best=i}});
-  dots.forEach(function(d,i){d.className="dot"+(i===best?" on":"")});
+  var nOff=$("nz").checked;$("pw").style.opacity=nOff?".35":"";$("pw").style.pointerEvents=nOff?"none":"";$("cur").style.display=nOff?"none":"";
+  dots.forEach(function(d,i){d.className="dot"+(!nOff&&i===best?" on":"")});
   $("cur").style.left=((px+1)/2*100)+"%";$("cur").style.top=((1-py)/2*100)+"%";
   $("val").textContent=v;$("term").textContent=t[0];$("en").textContent=t[3];
-  $("mterm").textContent=M[best][0];$("men").textContent=M[best][1];
+  $("mterm").textContent=nOff?"Off":M[best][0];$("men").textContent=nOff?"":M[best][1];
   var parts=[],itp=[];
   ["m","f"].forEach(function(g){
     var ty=TYPES[g][+$(g+"v").value],em=EMO[+$(g+"m").value],pu=PULL[+$(g+"p").value];
@@ -330,7 +366,7 @@ function upd(){
   k=[k[0],[k[1],sn[1],gv[1]].filter(Boolean).join(" and "),sn[1]?sn[0].toLowerCase():"",gv[1]?gv[0].toLowerCase():"",k[1]?"cassa "+k[0].toLowerCase():""];
   var b=BS[+$("bs").value];$("bst").textContent=b[0];$("bse").textContent=b[1];
   var vit=d[2]==="m"?itp[0]+" male vocal (solo)":d[2]==="f"?itp[1]+" female vocal (solo)":itp[0]+" male vocal and "+itp[1]+" female vocal ("+d[0].toLowerCase()+")";
-  show("res1",M[best][0].toLowerCase()+" "+t[0].toLowerCase()+bpm,M[best][1].replace(/,/g,"")+" "+t[3]+bpm);
+  show("res1",(nOff?"":M[best][0].toLowerCase()+" ")+t[0].toLowerCase()+bpm,(nOff?"":M[best][1].replace(/,/g,"")+" ")+t[3]+bpm);
   var grp=[["c1","gang vocals"],["c2","group singing"],["c3","sing-along"]].filter(function(c){return $(c[0]).checked}).map(function(c){return c[1]}).join(", ");grp=grp?"featuring "+grp:"";
   show("res2",ins?"instrumental":vit+(grp?" "+grp:""),ins?"instrumental":voc+(grp?" "+grp:""));
   var instI=[r[1]?r[0]:"",k[3],k[4],k[2],b[1]?b[0]:"",y[2]?y[0]:""].filter(Boolean),inst=[r[1]?r[1]+" rhythm":"",k[1],b[1],y[2]?y[2]+" instrumentation":""].filter(Boolean).join(" and ");
@@ -344,7 +380,7 @@ function upd(){
   var vs2=d[2]==="m"?parts[0]:d[2]==="f"?parts[1]:parts[0]+" and "+parts[1];
   var inI=instI.length?" over "+instI.join(" "):"",inE=inst?" over "+inst:"";
   var dx=d[2]==="b"?" "+d[0].toLowerCase():"",dxe=d[2]==="b"?" "+d[3]:"";
-  show("total",(md[1]?(md[3]||md[0])+" ":"")+fx+(gstr?gstr+" ":"")+"in "+t[0]+bpm+(ins?" tempo instrumental":" tempo with "+vit2+dx+(grp?" "+grp:""))+inI,((md[1]?md[1]+" ":"")+fx+(gstr?gstr.toLowerCase()+" ":"")+"in "+t[3]+bpm+(ins?" instrumental":" with "+vs2+dxe+(grp?" "+grp.replace(/,/g,"\u0001"):""))+inE).replace(/,/g,"").replace(/\u0001/g,","));
+  show("total",(md[1]?(md[3]||md[0])+" ":"")+fx+(gstr?gstr+" ":"")+"in "+t[0]+bpm+(ins?" tempo instrumental":" tempo with "+vit2+dx+(grp?" "+grp:""))+inI+(csent?". "+csent:""),((md[1]?md[1]+" ":"")+fx+(gstr?gstr.toLowerCase()+" ":"")+"in "+t[3]+bpm+(ins?" instrumental":" with "+vs2+dxe+(grp?" "+grp.replace(/,/g,"\u0001"):""))+inE+(csent?". "+csent.replace(/,/g,"\u0001"):"")).replace(/,/g,"").replace(/\u0001/g,","));
   (function(){var o=$("total")._o,tx=o.textContent;
     $("total").style.marginBottom="18px";
     if(!o._c){o._c=document.createElement("div");o._c.className="cap";o._c.style.marginBottom="6px";o._c.textContent="Final Result (English)";o.parentNode.insertBefore(o._c,o);o._n=document.createElement("div");o._n.className="en2 out";o._n.textContent="Use music terminology for near expected result";o.after(o._n)}
@@ -352,6 +388,7 @@ function upd(){
     var s=document.createElement("div");s.style.flex="1";s.textContent=tx;
     var c=document.createElement("button");c.type="button";c.className="cp";c.textContent="📋";c.setAttribute("aria-label","Copy");c.onclick=function(){cp(tx,c)};
     o.appendChild(s);o.appendChild(c)})();
+  document.querySelectorAll(".rg").forEach(function(g){var any=[].some.call(g.querySelectorAll(".box"),function(b){return b.style.display!=="none"});g.style.display=any?"":"none"});
 }
 function set(e){var r=pad.getBoundingClientRect();
   px=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width)*2-1));
@@ -363,13 +400,14 @@ pad.addEventListener("pointerup",function(){down=false});
 pad.addEventListener("keydown",function(e){var k={ArrowLeft:[-.05,0],ArrowRight:[.05,0],ArrowUp:[0,.05],ArrowDown:[0,-.05]}[e.key];
   if(!k)return;e.preventDefault();px=Math.max(-1,Math.min(1,px+k[0]));py=Math.max(-1,Math.min(1,py+k[1]));upd()});
 document.querySelectorAll('input[type=range]').forEach(function(i){i.addEventListener("input",upd)});
+$("nz").addEventListener("change",function(){if(!this.checked&&px===0&&py===0){px=.35;py=.3}});
 document.querySelectorAll('.chk input').forEach(function(i){i.addEventListener("change",upd)});
 function surprise(){
   var rnd=function(el){var a=+el.min,b=+el.max;return a+Math.floor(Math.random()*(b-a+1))};
   ["d","mv","mm","mp","fv","fm","fp"].forEach(function(id){$(id).value=rnd($(id))});
   $("s").value=60+Math.floor(Math.random()*141);
-  ["md","eq","ly","kd","sn","gv","bs","dy","rt","era"].forEach(function(id){var el=$(id);el.value=Math.random()<.5?el.defaultValue:rnd(el)});
-  px=Math.random()*2-1;py=Math.random()*2-1;
+  ["md","eq","ly","kd","sn","gv","bs","dy","rt","era","cf","ca","ct","cr"].forEach(function(id){var el=$(id);el.value=Math.random()<.5?el.defaultValue:rnd(el)});
+  px=Math.random()*2-1;py=Math.random()*2-1;$("nz").checked=Math.random()<.5;
   var pool=GL.slice(27),pk=function(){return pool[Math.floor(Math.random()*pool.length)]};
   var gs=[pk(),Math.random()<.7?pk():"",Math.random()<.4?pk():"",Math.random()<.2?pk():""];
   ["g1","g2","g3","g4"].forEach(function(id,i){$(id).value=(i>0&&gs[i]===gs[0])?"":gs[i]});
