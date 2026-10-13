@@ -383,7 +383,7 @@ function upd(){
   show("total",(md[1]?(md[3]||md[0])+" ":"")+fx+(gstr?gstr+" ":"")+"in "+t[0]+bpm+(ins?" tempo instrumental":" tempo with "+vit2+dx+(grp?" "+grp:""))+inI+(csent?". "+csent:""),((md[1]?md[1]+" ":"")+fx+(gstr?gstr.toLowerCase()+" ":"")+"in "+t[3]+bpm+(ins?" instrumental":" with "+vs2+dxe+(grp?" "+grp.replace(/,/g,"\u0001"):""))+inE+(csent?". "+csent.replace(/,/g,"\u0001"):"")).replace(/,/g,"").replace(/\u0001/g,","));
   (function(){var o=$("total")._o,tx=o.textContent;
     $("total").style.marginBottom="18px";
-    if(!o._c){o._c=document.createElement("div");o._c.className="cap";o._c.style.marginBottom="6px";o._c.textContent="Final Result (English)";o.parentNode.insertBefore(o._c,o);o._n=document.createElement("div");o._n.className="en2 out";o._n.textContent="Use music terminology for near expected result";o.after(o._n)}
+    if(!o._c){o._c=document.createElement("div");o._c.className="cap";o._c.style.marginBottom="6px";o._c.textContent="Final Result (English)";o.parentNode.insertBefore(o._c,o);o._n=document.createElement("div");o._n.className="en2 out";o._n.textContent="Use music terminology for orchestra arrangement";o.after(o._n)}
     o.textContent="";o.className="box";o.style.cssText="font-style:normal;margin-bottom:4px;display:flex;gap:10px;align-items:flex-start";
     var s=document.createElement("div");s.style.flex="1";s.textContent=tx;
     var c=document.createElement("button");c.type="button";c.className="cp";c.textContent="📋";c.setAttribute("aria-label","Copy");c.onclick=function(){cp(tx,c)};
