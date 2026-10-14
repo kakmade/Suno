@@ -15,9 +15,14 @@ main{max-width:520px;margin:0 auto;padding:24px 20px 40px}
 .hd{text-align:center;margin:4px 0 26px}
 .hd .b1{font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
 .hd h1{margin:4px 0 0;font-size:2rem;letter-spacing:.12em;text-transform:uppercase;line-height:1.1}
+.pills{display:flex;gap:8px;justify-content:center;margin:12px 0 0}
+a.pill{font-size:.9rem;padding:6px 18px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none}
+a.pill[aria-current]{background:var(--accent2);color:var(--bg);border-color:var(--accent2);font-weight:bold}
 h2{font-size:.95rem;margin:0 0 10px;border-bottom:1px solid var(--line);padding-bottom:6px}
 .grp,.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:16px}
-.card{padding:12px}
+.card{padding:12px;margin-bottom:0}
+.sec{margin-bottom:20px}
+.tip{font-size:.95rem;color:var(--muted);margin:2px 0 10px}
 .ir{display:grid;grid-template-columns:92px 1fr;gap:8px;align-items:center;margin-bottom:8px}
 .cap{font-size:.95rem;font-weight:bold}
 .cap2{font-size:.66rem;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:12px}
@@ -46,22 +51,33 @@ input[type=range]{width:100%;height:30px;margin:0;accent-color:var(--accent)}
 .mini{font-size:1.15rem;font-style:italic;line-height:1.2}
 .mini i{color:var(--accent)}
 .mini span{font-size:.85rem;font-style:normal;color:var(--muted);margin-left:8px}
-.ow{display:flex;gap:8px;align-items:flex-start;margin-top:4px}
-.en2{font-size:.9rem;color:var(--muted);margin-top:4px}
+.ow{display:flex;gap:8px;align-items:flex-start}
+.ta{display:grid;flex:1;min-width:0;min-height:5rem}
+.ta::after,.ta textarea{grid-area:1/1;font:inherit;font-size:1.1rem;font-style:italic;line-height:1.5;padding:14px 16px;margin:0;border:1px solid transparent;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}
+.ta::after{content:attr(data-v) " ";visibility:hidden}
+.ow .ta textarea{background:#fff3a6;border-color:#e3d27c;color:#000;caret-color:#000}
+.ta textarea{background:var(--card);border-color:var(--line);color:var(--ink);resize:none;overflow:hidden;width:100%;min-height:0}
+.en2{font-size:.95rem;color:var(--muted);margin-top:6px}
 .btns{display:flex;gap:10px;justify-content:center;margin:6px 0 20px}
 .big{padding:8px 16px}
+.addb{flex:1;font:inherit;font-size:1.1rem;font-weight:bold;letter-spacing:.04em;background:var(--accent);color:var(--bg);border:0;border-radius:12px;padding:16px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.addb:active{transform:translateY(1px)}
+.acw{position:relative;margin:4px 0 10px}
+.ac{display:none;position:absolute;left:0;right:0;top:100%;z-index:20;background:var(--card);border:1px solid var(--line);border-radius:8px;margin-top:2px;max-height:240px;overflow:auto;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.ac div{padding:8px 10px;font-size:.95rem;cursor:pointer}
+.ac div:hover,.ac div.on{background:var(--line)}
 .ft{padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:.8rem;color:var(--muted)}
 </style>
 </head>
 <body>
 <main>
-<header class="hd"><div class="b1">S U N O V6+</div><h1>Tags Tuner</h1></header>
+<header class="hd"><div class="b1">S U N O V6+</div><h1>Tags Tuner</h1><nav class="pills" aria-label="Tools"><a class="pill" href="suno-style-tuner.html">Style Tuner</a><a class="pill" href="suno-tags-tuner.html" aria-current="page">Tags Tuner</a></nav></header>
 <section class="grp"><h2>🎻 Choose Instruments</h2><div id="inst"></div></section>
 <datalist id="dl1"><option value="Acoustic guitar"><option value="Nylon guitar"><option value="Electric guitar"><option value="Piano"><option value="Rhodes"><option value="Organ"><option value="Violin"><option value="Viola"><option value="Cello"><option value="Harp"><option value="Flute"><option value="Clarinet"><option value="Saxophone"><option value="Trumpet"><option value="Accordion"><option value="Harmonica"><option value="Synth pad"></datalist>
 <datalist id="dld"><option value="Acoustic kit"><option value="Brushed kit"><option value="Jazz kit"><option value="Metal kit"><option value="Cajon"><option value="Hand percussion"><option value="Electronic kit"></datalist>
 <datalist id="dlb"><option value="Upright bass"><option value="Fingerstyle bass"><option value="Fretless bass"><option value="Slap bass"><option value="Picked bass"><option value="Synth bass"></datalist>
 <div id="secs"></div>
-<div class="btns"><button class="big" id="add" type="button">+ Section</button><button class="big" id="all" type="button">📋 Copy all</button></div>
+<div class="btns"><button class="addb" id="add" type="button">+ Section</button></div>
 <footer class="ft">A helper for drafting lyric tags so you do not waste credit tokens. Tags nudge Suno, they do not command it. Unofficial and not affiliated with Suno.</footer>
 </main>
 <script>
@@ -80,33 +96,36 @@ var CS=[["d","Delivery",SPD],["p","Pace",SPP],["y","Dynamics",DYN]];
 var CT=[["a","Articulation",ART],["n","Density",DEN],["y","Dynamics",DYN],["r","Direction",DIR]];
 function R0(){return {on:false,tac:false,a:0,n:0,y:0,r:0}}
 function S0(t){var r={};ROLES.forEach(function(x){r[x[0]]=R0()});return {type:t,r:r,man:null,sp:{d:0,p:0,y:0},text:""}}
-var S=[S0("Pre-Chorus"),S0("Chorus")];
+var S=[S0("Break"),S0("Pre-Chorus"),S0("Chorus")];S[0].open=true;
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 function name(k){return ($("i_"+k).value||"").trim()}
-function gen(s){if(s.type==="Spoken"){var m=[],e=[];CS.forEach(function(c){var v=c[2][s.sp[c[0]]];if(v[1]){m.push(v[0]);e.push(v[1])}});return {t:"[Spoken"+(m.length?": "+m.join(" "):"")+"]"+(s.text?"\n"+s.text:""),e:m.length?"Spoken: "+e.join(" "):""}}var it=[],en=[];
+function gen(s){if(s.type==="Spoken"){var m=[],e=[];CS.forEach(function(c){var v=c[2][s.sp[c[0]]];if(v[1]){m.push(v[0]);e.push(v[1])}});return {t:"[Spoken"+(m.length?": "+m.join(" ").toLowerCase():"")+"]"+(s.text?"\n"+s.text:""),e:m.length?"Spoken: "+e.join(" "):""}}var it=[],en=[];if(s.genre&&s.genre.trim()){it.push(s.genre.trim());en.push(s.genre.trim())}
  ROLES.forEach(function(R){var r=s.r[R[0]],nm=name(R[0]);if(!r.on||!nm)return;
   if(r.tac){it.push(nm+" - Tacet");en.push(nm+" silent");return}
   var m=[],e=[];CT.forEach(function(c){var v=c[2][r[c[0]]];if(v[1]){m.push(v[0]);e.push(v[1])}});
   it.push(m.length?nm+" - "+m.join(" "):nm);en.push(m.length?nm+" "+e.join(" "):nm)});
- return {t:"["+s.type+(it.length?": "+it.join(", "):"")+"]",e:it.length?s.type+": "+en.join(" and "):""}}
+ return {t:"["+s.type+(it.length?": "+it.join(", ").toLowerCase():"")+"]",e:it.length?s.type+": "+en.join(" and "):""}}
 function txt(s){return s.man!==null?s.man:gen(s).t}
 function rowH(s,i,R){var r=s.r[R[0]],nm=name(R[0]);if(!r.on||!nm)return"";
  var h='<div class="row"><div class="rh"><span><b>'+R[1]+'</b> · '+esc(nm)+'</span><label class="tc"><input type="checkbox" data-i="'+i+'" data-r="'+R[0]+'" data-k="tac"'+(r.tac?" checked":"")+'> Tacet</label></div>';
  if(!r.tac)CT.forEach(function(c){var v=c[2][r[c[0]]];
   h+='<div class="sc"><div class="cap2">'+c[1]+'</div><input type="range" min="0" max="'+(c[2].length-1)+'" step="1" value="'+r[c[0]]+'" data-i="'+i+'" data-r="'+R[0]+'" data-k="'+c[0]+'" aria-label="'+R[1]+" "+c[1]+'"><div class="mini"><i>'+v[0]+'</i><span>'+v[1]+'</span></div></div>'});
  return h+"</div>"}
-function spk(s,i){var h='<div class="cap">Spoken text</div><textarea data-i="'+i+'" data-k="txt" rows="3" placeholder="Type the spoken words">'+esc(s.text)+'</textarea>';h+='<div class="sg">';CS.forEach(function(c){var v=c[2][s.sp[c[0]]];h+='<div class="sc"><div class="cap2">'+c[1]+'</div><input type="range" min="0" max="'+(c[2].length-1)+'" step="1" value="'+s.sp[c[0]]+'" data-i="'+i+'" data-r="sp" data-k="'+c[0]+'" aria-label="Spoken '+c[1]+'"><div class="mini"><i>'+v[0]+'</i><span>'+v[1]+'</span></div></div>'});return h+'</div>'}
+function spk(s,i){var h='<div class="cap">Spoken text</div><div class="ta" style="margin-top:4px"><textarea data-i="'+i+'" data-k="txt" rows="1" placeholder="Type the spoken words">'+esc(s.text)+'</textarea></div>';h+='<div class="sg">';CS.forEach(function(c){var v=c[2][s.sp[c[0]]];h+='<div class="sc"><div class="cap2">'+c[1]+'</div><input type="range" min="0" max="'+(c[2].length-1)+'" step="1" value="'+s.sp[c[0]]+'" data-i="'+i+'" data-r="sp" data-k="'+c[0]+'" aria-label="Spoken '+c[1]+'"><div class="mini"><i>'+v[0]+'</i><span>'+v[1]+'</span></div></div>'});return h+'</div>'}
 function card(s,i){var g=gen(s);
- var h='<div class="card"><div class="top"><select data-i="'+i+'" data-k="type" aria-label="Section">'+TYPES.map(function(t){return '<option'+(t===s.type?" selected":"")+'>'+t+'</option>'}).join("")+'</select><span class="sp"></span>'+
- (i?'<button class="cp" type="button" data-act="prev" data-i="'+i+'">↧ copy previous</button>':"")+'<button class="cp" type="button" data-act="del" data-i="'+i+'" aria-label="Delete section">✕</button></div>';
+ var h='<div class="sec"><div class="card"><div class="top"><select data-i="'+i+'" data-k="type" aria-label="Section">'+TYPES.map(function(t){return '<option'+(t===s.type?" selected":"")+'>'+t+'</option>'}).join("")+'</select><span class="sp"></span>'+
+ '<button class="cp" type="button" data-act="del" data-i="'+i+'" aria-label="Delete section">✕</button></div>';
+ if(s.open)h='<div class="sec"><div class="card"><div class="top"><span class="cap">Opening Break</span></div><div class="tip">💡 Tip: If you want to set the genre, start your lyrics with a Break.</div><div class="cap">Genre</div><div class="acw"><input type="text" data-i="'+i+'" data-k="genre" autocomplete="off" placeholder="type any genre" aria-label="Genre" value="'+esc(s.genre||"")+'"><div class="ac"></div></div>';
  if(s.type==="Spoken")h+=spk(s,i);else h+='<div class="cap">Apply modifiers to</div><div class="chips">'+ROLES.map(function(R){var nm=name(R[0]);
   return '<button type="button" class="chip'+(s.r[R[0]].on&&nm?" on":"")+'" data-act="chip" data-i="'+i+'" data-r="'+R[0]+'"'+(nm?"":" disabled")+'>'+R[1]+(nm?" · "+esc(nm):"")+'</button>'}).join("")+'</div>';
  if(s.type!=="Spoken")ROLES.forEach(function(R){h+=rowH(s,i,R)});
- h+='<div class="cap" style="margin-top:10px">Output</div><div class="ow"><textarea id="o'+i+'" data-i="'+i+'" data-k="man" rows="'+(s.type==="Spoken"?4:2)+'" spellcheck="false">'+esc(txt(s))+'</textarea><button class="cp" type="button" data-act="copy" data-i="'+i+'" aria-label="Copy">📋</button></div>';
- h+='<div class="en2" id="e'+i+'">'+esc(g.e)+'</div><button class="lnk" type="button" id="rs'+i+'" data-act="reset" data-i="'+i+'"'+(s.man===null?" hidden":"")+'>↺ back to auto</button></div>';
+ h+='<div class="cap" style="margin:12px 0 6px">Output</div><div class="ow"><div class="ta"><textarea id="o'+i+'" data-i="'+i+'" data-k="man" rows="1" spellcheck="false" aria-label="Output">'+esc(txt(s))+'</textarea></div><button class="cp" type="button" data-act="copy" data-i="'+i+'" aria-label="Copy">📋</button></div>';
+ h+='<div class="en2" id="e'+i+'">'+esc(g.e)+'</div><button class="lnk" type="button" id="rs'+i+'" data-act="reset" data-i="'+i+'"'+(s.man===null?" hidden":"")+'>↺ back to auto</button></div></div>';
  return h}
-function render(){$("secs").innerHTML=S.map(card).join("")}
-function refresh(i){var s=S[i],g=gen(s);if(s.man===null)$("o"+i).value=g.t;$("e"+i).textContent=g.e}
+function fit(e){e.parentNode.setAttribute("data-v",e.value)}
+function fitAll(){[].forEach.call(document.querySelectorAll("#secs textarea"),fit)}
+function render(){$("secs").innerHTML=S.map(card).join("");fitAll()}
+function refresh(i){var s=S[i],g=gen(s);if(s.man===null)$("o"+i).value=g.t;fit($("o"+i));$("e"+i).textContent=g.e}
 function cp(t,b){function ok(){var o=b.textContent;b.textContent="✓";setTimeout(function(){b.textContent=o},1200)}
  function fb(){var a=document.createElement("textarea");a.value=t;a.style.cssText="position:fixed;opacity:0";document.body.appendChild(a);a.select();try{document.execCommand("copy");ok()}catch(e){}document.body.removeChild(a)}
  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t).then(ok,fb)}else{fb()}}
@@ -115,8 +134,9 @@ $("inst").addEventListener("input",render);
 $("secs").addEventListener("input",function(e){var t=e.target,i=+t.dataset.i,s=S[i];if(!s)return;
  if(t.type==="range"){var k=t.dataset.k,sp=t.dataset.r==="sp",c=(sp?CS:CT).filter(function(x){return x[0]===k})[0];(sp?s.sp:s.r[t.dataset.r])[k]=+t.value;
   var v=c[2][+t.value],m=t.nextElementSibling;m.innerHTML="<i>"+v[0]+"</i><span>"+v[1]+"</span>";refresh(i)}
- else if(t.dataset.k==="txt"){s.text=t.value;refresh(i)}
- else if(t.dataset.k==="man"){s.man=t.value;$("rs"+i).hidden=false}});
+ else if(t.dataset.k==="genre"){s.genre=t.value;sug(t);refresh(i)}
+ else if(t.dataset.k==="txt"){s.text=t.value;fit(t);refresh(i)}
+ else if(t.dataset.k==="man"){s.man=t.value;fit(t);$("rs"+i).hidden=false}});
 $("secs").addEventListener("change",function(e){var t=e.target,s=S[+t.dataset.i];if(!s)return;
  if(t.dataset.k==="type"){s.type=t.value;render()}
  else if(t.dataset.k==="tac"){s.r[t.dataset.r].tac=t.checked;render()}});
@@ -124,11 +144,27 @@ $("secs").addEventListener("click",function(e){var b=e.target.closest("button[da
  var i=+b.dataset.i,s=S[i],a=b.dataset.act;
  if(a==="chip"){s.r[b.dataset.r].on=!s.r[b.dataset.r].on;render()}
  else if(a==="del"){S.splice(i,1);render()}
- else if(a==="prev"){s.r=JSON.parse(JSON.stringify(S[i-1].r));s.sp=JSON.parse(JSON.stringify(S[i-1].sp));s.man=null;render()}
  else if(a==="reset"){s.man=null;render()}
  else if(a==="copy"){cp(txt(s),b)}});
 $("add").onclick=function(){S.push(S0("Verse 1"));render()};
-$("all").onclick=function(){cp(S.map(txt).join("\n\n"),$("all"))};
+var GL="psychedelic,hard,dark,acid,dreamy,melodic,progressive,experimental,avant-garde,instrumental,atmospheric,cinematic,ethereal,gritty,raw,tropical,underground,alternative,retro,vintage,futuristic,tribal,ritual,desert,cosmic,occult,gothic,rock,alternative rock,indie rock,garage rock,psychedelic rock,progressive rock,hard rock,soft rock,glam rock,blues rock,folk rock,country rock,southern rock,art rock,krautrock,space rock,stoner rock,desert rock,surf rock,noise rock,math rock,post-rock,shoegaze,blackgaze,noise pop,jangle pop,power pop,emo,midwest emo,emo pop,screamo,post-hardcore,pop punk,punk rock,hardcore punk,skate punk,folk punk,ska punk,ska,two tone ska,rocksteady,grunge,post-grunge,britpop,new wave,post-punk,darkwave,coldwave,gothic rock,deathrock,industrial rock,nu metal,heavy metal,thrash metal,death metal,black metal,doom metal,sludge metal,stoner metal,power metal,symphonic metal,folk metal,progressive metal,djent,metalcore,deathcore,grindcore,melodic death metal,gothic metal,viking metal,funk metal,rap metal,post-metal,slowcore,sadcore,lo-fi indie,bedroom pop,hypnagogic pop,chillwave,vaporwave,future funk,synthwave,retrowave,outrun,darksynth,dreamwave,pop,synth pop,electropop,dance pop,bubblegum pop,art pop,chamber pop,baroque pop,sunshine pop,psychedelic pop,dream pop,hyperpop,glitch pop,k-pop,j-pop,city pop,mandopop,cantopop,t-pop,latin pop,europop,eurodance,italo disco,schlager,ye-ye,chanson,ballad,power ballad,adult contemporary,teen pop,indie pop,twee pop,jazz pop,folk pop,country pop,hip hop,boom bap,trap,drill,uk drill,grime,cloud rap,lo-fi hip hop,jazz rap,conscious hip hop,gangsta rap,g-funk,crunk,phonk,drift phonk,memphis rap,horrorcore,emo rap,underground hip hop,abstract hip hop,trip hop,r&b,neo soul,soul,northern soul,motown,funk,p-funk,boogie,new jack swing,alternative r&b,gospel,praise and worship,jazz,bebop,cool jazz,hard bop,modal jazz,free jazz,avant-garde jazz,jazz fusion,smooth jazz,acid jazz,nu jazz,swing,big band,gypsy jazz,dixieland,latin jazz,afro cuban jazz,bossa nova,samba,samba jazz,tropicalia,psychedelic bossa nova,lounge,exotica,easy listening,space age pop,library music,dark jazz,vocal jazz,blues,delta blues,chicago blues,electric blues,country,outlaw country,alt-country,bluegrass,honky tonk,americana,western swing,folk,indie folk,freak folk,psychedelic folk,anti-folk,neofolk,dark folk,celtic,irish folk,sea shanty,acoustic,singer-songwriter,medieval folk,electronic,edm,house,deep house,tech house,progressive house,acid house,chicago house,afro house,french house,funky house,electro house,big room,techno,minimal techno,dark techno,industrial techno,acid techno,hard techno,detroit techno,trance,psytrance,goa trance,progressive trance,uplifting trance,vocal trance,hardstyle,hardcore,gabber,happy hardcore,uk hardcore,hard bass,rave,hard bass rave,breakbeat,big beat,drum and bass,liquid drum and bass,neurofunk,jungle,dubstep,brostep,riddim,future bass,melodic dubstep,garage,uk garage,2-step,speed garage,bassline,dub,dub techno,ambient,dark ambient,drone,idm,glitch,breakcore,footwork,juke,electro,electroclash,ebm,industrial,aggrotech,futurepop,chiptune,video game music,lo-fi,lo-fi house,chillout,downtempo,psybient,psychill,balearic,nu disco,disco,hi-nrg,eurobeat,tropical house,microhouse,baile funk,amapiano,gqom,kuduro,afrobeats,moombahton,dembow,reggaeton,latin trap,cumbia,bachata,salsa,merengue,mambo,bolero,tango,nuevo tango,flamenco,fado,vallenato,forro,pagode,sertanejo,afrobeat,highlife,juju,soukous,rumba,bongo flava,afropop,desert blues,rai,gnawa,arabic pop,dabke,klezmer,balkan brass,turkish psych,anatolian rock,bollywood,bhangra,qawwali,ghazal,carnatic,hindustani classical,raga,enka,kayokyoku,shibuya-kei,visual kei,vocaloid,j-rock,gamelan,gamelan bali,gamelan jawa,kecak,jegog,degung,keroncong,dangdut,dangdut koplo,koplo,pop sunda,campursari,gambus,orkes melayu,nasyid,indonesian pop,indonesian rock,indonesian indie,indonesian post-hardcore,pop bali,reggae bali,luk thung,mor lam,opm,kundiman,throat singing,hawaiian,slack key,andean folk,huayno,mariachi,ranchera,norteno,corrido,tejano,zydeco,cajun,calypso,soca,dancehall,ragga,roots reggae,reggae,lovers rock,dub reggae,reggae fusion,steelpan,classical,baroque,renaissance,medieval,gregorian chant,choral,opera,operetta,lieder,chamber music,string quartet,solo piano,neoclassical,modern classical,minimalism,contemporary classical,orchestral,symphonic,film score,epic orchestral,trailer music,epic,dark cinematic,fantasy orchestral,soundtrack,anime soundtrack,musical theatre,broadway,cabaret,dark cabaret,vaudeville,ragtime,spaghetti western,spy jazz,sacred,hymn,spiritual,new age,meditation,sleep music,sound bath,space music,ethereal wave,trap soul,bedroom soul,psychedelic soul,psychedelic funk,afrofuturism,witch house,seapunk,sovietwave,hauntology,plunderphonics,spoken word,poetry,novelty,lullaby,marching band,drum corps,fanfare,military march,brass band,polka,waltz,yodel,barbershop,a cappella,doo-wop,rockabilly,psychobilly,rock and roll,rhythm and blues,skiffle,merseybeat,mod,freakbeat,pub rock,street punk,crust punk,d-beat,anarcho-punk,riot grrrl,queercore,horror punk,cowpunk,celtic punk,gypsy punk,zeuhl,canterbury scene,avant-prog,neo-prog,symphonic prog,jam band,noise,harsh noise,power electronics,musique concrete,minimal wave,synth punk,new romantic,yacht rock,aor,arena rock,heartland rock,christian rock,idol pop,eurovision,pc music".split(",");
+GL=GL.filter(function(x,i){return x&&GL.indexOf(x)===i});
+function sug(inp){var box=inp.parentNode.querySelector(".ac"),q=inp.value.toLowerCase().trim();
+ if(q.length<2){box.style.display="none";return}
+ var ts=q.split(" ").filter(Boolean),sc=[];
+ GL.forEach(function(g){var l=g.toLowerCase();if(l===q)return;if(!ts.every(function(t){return l.indexOf(t)>-1}))return;sc.push([l.indexOf(q)===0?0:(l.indexOf(" "+ts[0])>-1?1:2),g])});
+ sc.sort(function(a,b){return a[0]-b[0]||a[1].length-b[1].length});
+ var cur=sc.slice(0,8);box._cur=cur.map(function(x){return x[1]});box._sel=-1;box.innerHTML=cur.map(function(x){return '<div data-pick="'+esc(x[1])+'">'+esc(x[1])+'</div>'}).join("");box.style.display=cur.length?"block":"none"}
+$("secs").addEventListener("pointerdown",function(e){var p=e.target.closest("[data-pick]");if(!p)return;e.preventDefault();
+ var inp=p.parentNode.parentNode.querySelector("input"),i=+inp.dataset.i;S[i].genre=p.getAttribute("data-pick");inp.value=S[i].genre;p.parentNode.style.display="none";refresh(i)});
+$("secs").addEventListener("keydown",function(e){var t=e.target;if(!t.dataset||t.dataset.k!=="genre")return;
+ var b=t.parentNode.querySelector(".ac"),c=b._cur||[];if(!c.length||b.style.display==="none")return;
+ function mk(){[].forEach.call(b.children,function(d,j){d.className=j===b._sel?"on":""})}
+ if(e.key==="ArrowDown"||e.key==="ArrowUp"){e.preventDefault();b._sel=(b._sel+(e.key==="ArrowDown"?1:-1)+c.length)%c.length;mk()}
+ else if(e.key==="Enter"&&b._sel>-1){e.preventDefault();var i=+t.dataset.i;S[i].genre=c[b._sel];t.value=c[b._sel];b.style.display="none";refresh(i)}
+ else if(e.key==="Escape"){b.style.display="none"}});
+$("secs").addEventListener("focusout",function(e){var t=e.target;if(t.dataset&&t.dataset.k==="genre"){var b=t.parentNode.querySelector(".ac");setTimeout(function(){if(b)b.style.display="none"},150)}});
+window.addEventListener("resize",fitAll);
 render();
 </script>
 </body>

@@ -74,6 +74,11 @@ details.grp>summary:focus-visible{outline:2px solid var(--accent);outline-offset
 .sp{display:block;width:auto;margin:8px auto 18px;padding:12px 32px;font:inherit;font-size:1.05rem;font-weight:bold;letter-spacing:.04em;border:0;border-radius:999px;background:var(--accent);color:var(--bg);cursor:pointer}
 .sp:active{transform:scale(.98)}
 .hd{text-align:center;margin:4px 0 26px}
+.pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:14px}
+.pill{display:inline-block;padding:7px 18px;border:1px solid var(--line);border-radius:999px;color:var(--ink);text-decoration:none;font-size:.9rem;font-weight:bold;letter-spacing:.03em;background:transparent}
+.pill:hover{border-color:var(--accent)}
+.pill:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.pill.on{background:var(--accent);border-color:var(--accent);color:var(--bg)}
 .hd .b1{font-size:.8rem;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
 .hd h1{margin:4px 0 0;font-size:2rem;font-weight:bold;letter-spacing:.12em;text-transform:uppercase;line-height:1.1}
 .ft{margin-top:8px;padding-top:14px;border-top:1px solid var(--line);text-align:center;font-size:.8rem;color:var(--muted)}
@@ -100,7 +105,7 @@ details.grp>summary:focus-visible{outline:2px solid var(--accent);outline-offset
 </head>
 <body>
 <main>
-  <header class="hd"><div class="b1">S U N O &middot; V 6 +</div><h1>Style Tuner</h1></header>
+  <header class="hd"><div class="b1">S U N O &middot; V 6 +</div><h1>Style Tuner</h1><nav class="pills" aria-label="Tools"><a class="pill on" href="suno-style-tuner.html" aria-current="page">Style Tuner</a><a class="pill" href="suno-tags-tuner.html">Tags Tuner</a></nav></header>
   <div class="og">
   <div class="oh">🏗️ Base</div>
   <section class="grp" id="genre"><h2>🎧 Genre</h2></section>
@@ -175,7 +180,6 @@ details.grp>summary:focus-visible{outline:2px solid var(--accent);outline-offset
     </div>
   </details>
   <div class="rg"><div class="cap">Core Result (Music Terminology)</div>
-    <div class="box" id="res3"></div>
     <div class="box" id="res2"></div>
   </div>
 </div>
@@ -327,9 +331,9 @@ function upd(){
   var crest=[cv[2]?"accented by brief "+cv[2]+" passing chords":"",cv[3]?((cfirst||cv[2])?"then ":"")+"resolving "+(cv[3]===cv[0]?"back to ":"to ")+cv[3]+" chords":""];
   var csent=[cfirst].concat(crest).filter(Boolean).join(", ");
   csent=csent?csent.charAt(0).toUpperCase()+csent.slice(1)+".":"";
-  show("res3",csent,"");$("cbon").style.display=csent?"":"none";
+  $("cbon").style.display=csent?"":"none";
   $("pbon").style.display=["md","eq","ly"].some(function(id){return +$(id).value!==+$(id).defaultValue})?"":"none";
-  $("kion").style.display=["kd","sn","gv","bs","dy","rt"].some(function(id){return +$(id).value!==+$(id).defaultValue})?"":"none";$("res3").style.display=csent?"flex":"none";$("res3")._o.style.display=csent?"":"none";
+  $("kion").style.display=["kd","sn","gv","bs","dy","rt"].some(function(id){return +$(id).value!==+$(id).defaultValue})?"":"none";
   var ins=$("ins").checked;["d","mv","mm","mp","fv","fm","fp","c1","c2","c3"].forEach(function(id){$(id).disabled=ins});[$("d").closest(".row"),$("mv").closest(".cols"),$("c1").closest(".row")].forEach(function(el){el.style.opacity=ins?".35":"";el.style.pointerEvents=ins?"none":""});
   var md=MD[+$("md").value];$("mdt").textContent=md[0];$("mde").textContent=md[2];
   var eq=EQ[+$("eq").value];$("eqt").textContent=eq;eq=eq==="Off"?"":eq.toLowerCase();
@@ -340,7 +344,7 @@ function upd(){
   var er=ERA[+$("era").value];$("erat").textContent=er;if(er==="Off")er="";
   var gstr=[gx[0],gx[1]?(g2x?(gx[0]?"mixed with ":""):g2c?(gx[0]?"colored with ":""):g2w?(gx[0]?"with ":""):(gx[0]?"influenced with ":""))+(er?er+" ":"")+gx[1]+(g2w?" weight":""):"",gx[2]?(gx[0]||gx[1]?"and ":"")+gx[2]+" slip":"",gx[3]?(gx[0]||gx[1]||gx[2]?"and ":"")+gx[3]+" rupture":""].filter(Boolean).join(" ");
   var mg=(md[1]?(md[3]||md[0])+" ":"")+fx+gstr;show("res0",mg.trim(),gl.length>1?"primary leads, influenced with, weight, colored or mixed adds color, slip is a brief touch, rupture is a stronger break":"");
-  $("res0").style.display=mg?"flex":"none";$("res0")._o.style.display=mg?"":"none";
+  
   M.forEach(function(m,i){var d=(m[2]-px)*(m[2]-px)+(m[3]-py)*(m[3]-py);if(d<bd){bd=d;best=i}});
   var nOff=$("nz").checked;$("pw").style.opacity=nOff?".35":"";$("pw").style.pointerEvents=nOff?"none":"";$("cur").style.display=nOff?"none":"";
   dots.forEach(function(d,i){d.className="dot"+(!nOff&&i===best?" on":"")});
@@ -366,12 +370,12 @@ function upd(){
   k=[k[0],[k[1],sn[1],gv[1]].filter(Boolean).join(" and "),sn[1]?sn[0].toLowerCase():"",gv[1]?gv[0].toLowerCase():"",k[1]?"cassa "+k[0].toLowerCase():""];
   var b=BS[+$("bs").value];$("bst").textContent=b[0];$("bse").textContent=b[1];
   var vit=d[2]==="m"?itp[0]+" male vocal (solo)":d[2]==="f"?itp[1]+" female vocal (solo)":itp[0]+" male vocal and "+itp[1]+" female vocal ("+d[0].toLowerCase()+")";
-  show("res1",(nOff?"":M[best][0].toLowerCase()+" ")+t[0].toLowerCase()+bpm,(nOff?"":M[best][1].replace(/,/g,"")+" ")+t[3]+bpm);
+  show("res1",nOff?"":M[best][0].toLowerCase()+" "+t[0].toLowerCase()+bpm,nOff?"":M[best][1].replace(/,/g,"")+" "+t[3]+bpm);
   var grp=[["c1","gang vocals"],["c2","group singing"],["c3","sing-along"]].filter(function(c){return $(c[0]).checked}).map(function(c){return c[1]}).join(", ");grp=grp?"featuring "+grp:"";
-  show("res2",ins?"instrumental":vit+(grp?" "+grp:""),ins?"instrumental":voc+(grp?" "+grp:""));
+  show("res2",(ins?"instrumental":vit+(grp?" "+grp:""))+(csent?". "+csent:""),(ins?"instrumental":voc+(grp?" "+grp:""))+(csent?". "+csent:""));
   var instI=[r[1]?r[0]:"",k[3],k[4],k[2],b[1]?b[0]:"",y[2]?y[0]:""].filter(Boolean),inst=[r[1]?r[1]+" rhythm":"",k[1],b[1],y[2]?y[2]+" instrumentation":""].filter(Boolean).join(" and ");
   show("both",instI.join(" "),inst);
-  $("both").style.display=instI.length?"flex":"none";$("both")._o.style.display=instI.length?"":"none";
+  
   var vs=d[2]==="m"?"with "+parts[0]+" solo":d[2]==="f"?"with "+parts[1]+" solo":"with "+parts[0]+" and "+parts[1]+" "+d[3];
   var en=[(gstr?gstr.toLowerCase()+" ":"")+(md[1]?md[1]+" ":"")+t[3]+" "+t[0].toLowerCase()+" in "+M[best][1]+" mood",vs,"over "+r[1]+" rhythm"+(k[1]?" with "+k[1]:"")+" and "+b[1]+" and "+y[2]+" instrumentation"].join(" ").replace(/,/g,"");
   show("total",(gstr?gstr+". ":"")+(md[1]?md[0]+" ":"")+t[0]+" "+M[best][0].toLowerCase()+". "+vit+". Ritmo "+[r[0],k[3]].filter(Boolean).join(" ").toLowerCase()+([k[4],k[2]].filter(Boolean).length?" con "+[k[4],k[2]].filter(Boolean).join(" "):"")+" e "+b[0].toLowerCase()+" in dinamica "+y[0].toLowerCase()+".",en);
@@ -388,7 +392,7 @@ function upd(){
     var s=document.createElement("div");s.style.flex="1";s.textContent=tx;
     var c=document.createElement("button");c.type="button";c.className="cp";c.textContent="📋";c.setAttribute("aria-label","Copy");c.onclick=function(){cp(tx,c)};
     o.appendChild(s);o.appendChild(c)})();
-  document.querySelectorAll(".rg").forEach(function(g){var any=[].some.call(g.querySelectorAll(".box"),function(b){return b.style.display!=="none"});g.style.display=any?"":"none"});
+  
 }
 function set(e){var r=pad.getBoundingClientRect();
   px=Math.max(-1,Math.min(1,((e.clientX-r.left)/r.width)*2-1));
